@@ -26,7 +26,7 @@ Router.post('/register',async(req,res)=>{
          })
          userData.save(err=>{
              if(err){
-                console.log("Web wrong")
+                console.log("err")
              }else{
                 res.render('register',{title :'Done',password:'',email:''})
              }
@@ -34,7 +34,7 @@ Router.post('/register',async(req,res)=>{
        
     const useremail = await homeSchema.findOne({email:email});
      if(email === useremail.email){
-        res.render('register',{title :'',password:'',email:'Different use!'})
+        res.render('register',{title :'',password:'',email:'Email is Already there plz chose different one'})
      }else{
          console.log('err')
      }
@@ -58,7 +58,7 @@ Router.post('/login',(req,res)=>{
     } = req.body;
 
     homeSchema.findOne({email:email},(err,result)=>{
-        console.log(result);
+        
         if(email === result.email && password === result.password){
             res.render('dashbord', {name : result.name})
         }else{
@@ -67,4 +67,7 @@ Router.post('/login',(req,res)=>{
         }
     })
 })
+
+
+
 module.exports = Router;
